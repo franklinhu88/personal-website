@@ -1,21 +1,25 @@
-import Sidebar from "@/components/layout/Sidebar"
-import MainFeed from "@/components/layout/MainFeed"
-import StatusPanel from "@/components/layout/StatusPanel"
+import Header from "@/components/layout/Header";
+import ProfileMain from "@/components/profile/ProfileMain";
+import ProfileSidebar from "@/components/profile/ProfileSidebar";
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-7xl grid grid-cols-12 gap-6 p-6">
-      <aside className="col-span-3">
-        <Sidebar />
-      </aside>
+    <>
+      <Header />
 
-      <section className="col-span-6">
-        <MainFeed />
-      </section>
+      <main className="pt-20 mx-auto max-w-7xl px-6">
+        <div className="grid grid-cols-12 gap-6">
+          {/* Left: Profile */}
+          <section id="home" className="col-span-8">
+            <ProfileMain />
+          </section>
 
-      <aside className="col-span-3">
-        <StatusPanel />
-      </aside>
-    </main>
-  )
+          {/* Right: Status */}
+          <aside id="activity" className="col-span-4">
+            <ProfileSidebar />
+          </aside>
+        </div>
+      </main>
+    </>
+  );
 }
