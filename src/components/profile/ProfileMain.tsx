@@ -12,12 +12,12 @@ export default function ProfileMain() {
       <AboutSection />
 
       <section className="card p-6">
-        <h3 className="font-semibold mb-2">Blog</h3>
+        <h3 className="font-semibold mb-2 text-xl">Blog</h3>
         <p className="text-sm">Blog section coming soon.</p>
       </section>
 
       <section className="card p-6">
-        <h3 className="font-semibold mb-4">Experience</h3>
+        <h3 className="font-semibold mb-4 text-xl">Experience</h3>
 
         <div className="space-y-6">
           <ExperienceItem
@@ -95,7 +95,7 @@ export default function ProfileMain() {
       </section>
 
       <section className="card p-6">
-        <h3 className="font-semibold mb-4">Projects</h3>
+        <h3 className="font-semibold mb-4 text-xl">Projects</h3>
 
         <div className="space-y-6">
           <ProjectItem

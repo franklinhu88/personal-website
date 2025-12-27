@@ -1,7 +1,7 @@
 export default function AboutSection() {
   return (
     <section className="card p-6">
-      <h3 className="font-semibold mb-2">About</h3>
+      <h3 className="font-semibold mb-2 text-xl">About</h3>
 
       <p className="text-sm leading-relaxed">
         Hi! I'm Franklin, a software engineer current completing my bachelor's
