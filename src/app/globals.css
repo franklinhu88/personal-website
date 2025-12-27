@@ -5,6 +5,7 @@
   --foreground: #171717;
   --bg-card: #ffffff;
   --border-subtle: #e0dfdc;
+  --accent-blue: #0a66c2;
 }
 
 @theme inline {
@@ -36,3 +37,4 @@ body {
   border: 1px solid var(--border-subtle);
   border-radius: 12px;
 }
+
