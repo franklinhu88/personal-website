@@ -54,7 +54,7 @@ export default function Header() {
               <div className="flex items-center justify-center h-6 w-6">
                 {item.iconType === "image" ? (
                   <Image
-                    src={item.iconSrc}
+                    src={item.iconSrc!}
                     alt={`${item.label} icon`}
                     width={20}
                     height={20}
