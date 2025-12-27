@@ -4,7 +4,7 @@ export default function StatusPanel() {
   const status = mockStatus
 
   return (
-    <div className="border rounded-xl p-4 space-y-2">
+    <div className="border rounded-xl p-4 space-y-2 card">
       <h2 className="font-semibold">Currently</h2>
       <p className="text-sm text-gray-600">{status.summary}</p>
 

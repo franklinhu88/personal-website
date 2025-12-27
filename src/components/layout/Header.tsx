@@ -20,7 +20,7 @@ export default function Header() {
         {/* Left: Logo */}
         <div className="flex items-center gap-2">
           <Image
-            src="/assets/linkedin-logo.png"
+            src="/assets/icons/linkedin-logo.png"
             alt="Logo"
             width={32}
             height={32}

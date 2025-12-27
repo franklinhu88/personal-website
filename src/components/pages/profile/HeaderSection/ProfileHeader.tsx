@@ -11,22 +11,22 @@ export default function ProfileHeader() {
     {
       label: "GitHub",
       url: "https://github.com/franklinhu88",
-      iconSrc: "/assets/github.svg",
+      iconSrc: "/assets/logos/github.svg",
     },
     {
       label: "LinkedIn",
       url: "https://www.linkedin.com/in/franklinhu/",
-      iconSrc: "/assets/linkedin.svg",
+      iconSrc: "/assets/logos/linkedin.svg",
     },
     {
       label: "Google Scholar",
       url: "https://scholar.google.com/citations?hl=en&user=GaFQAt4AAAAJ",
-      iconSrc: "/assets/google-scholar.svg",
+      iconSrc: "/assets/logos/google-scholar.svg",
     },
     {
       label: "Valorant Tracker",
       url: "https://tracker.gg/valorant/profile/riot/HuWu%23Vibin/overview?platform=pc&playlist=competitive&season=4c4b8cff-43eb-13d3-8f14-96b783c90cd2",
-      iconSrc: "/assets/valorant.png",
+      iconSrc: "/assets/logos/valorant.png",
     },
   ];
 

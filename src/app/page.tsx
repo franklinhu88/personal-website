@@ -1,6 +1,6 @@
 import Header from "@/components/layout/Header";
-import ProfileMain from "@/components/profile/ProfileMain";
-import ProfileSidebar from "@/components/profile/ProfileSidebar";
+import StatusPanel from "@/components/layout/StatusPanel";
+import ProfileMain from "@/components/pages/profile/ProfileMain";
 
 export default function Home() {
   return (
@@ -22,7 +22,7 @@ export default function Home() {
             id="activity"
             className="col-span-4 sticky top-20 h-[calc(100vh-5rem)] overflow-hidden"
           >
-            <ProfileSidebar />
+            <StatusPanel />
           </aside>
         </div>
       </main>
