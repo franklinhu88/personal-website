@@ -4,7 +4,7 @@ export default function AboutSection() {
       <h3 className="font-semibold mb-2 text-xl">About</h3>
 
       <p className="text-sm leading-relaxed">
-        Hi! I'm Franklin, a software engineer current completing my bachelor's
+        Hi! I'm Franklin, an aspiring software engineer currently completing my bachelor's
         degree in Computer Science and Math with a minor in Business and also a
         master's degree in Computer Science at Vanderbilt University in
         Nashville, TN.

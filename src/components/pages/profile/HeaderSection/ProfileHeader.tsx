@@ -2,7 +2,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import LinksModal from "./LinksModal";
-import { FaGithub, FaLinkedin, FaGlobe, FaGamepad } from "react-icons/fa";
 
 export default function ProfileHeader() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -63,7 +62,7 @@ export default function ProfileHeader() {
         <div className="flex flex-col gap-1">
           <h2 className="text-2xl font-semibold">Franklin Hu</h2>
           <p className="text-gray-700">
-            B.S./M.S. Computer Science Joint Program at Vanderbilt University
+            Completing Joint B.S./M.S. Computer Science Program at Vanderbilt University
           </p>
           <p className="text-sm text-gray-500">
             New York Metropolitan Area · United States
