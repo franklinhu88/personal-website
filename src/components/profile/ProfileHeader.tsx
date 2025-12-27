@@ -1,8 +1,38 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
+import LinksModal from "./LinksModal";
+import { FaGithub, FaLinkedin, FaGlobe, FaGamepad } from "react-icons/fa";
 
 export default function ProfileHeader() {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const links = [
+    {
+      label: "GitHub",
+      url: "https://github.com/franklinhu88",
+      iconSrc: "/assets/github.svg",
+    },
+    {
+      label: "LinkedIn",
+      url: "https://www.linkedin.com/in/franklinhu/",
+      iconSrc: "/assets/linkedin.svg",
+    },
+    {
+      label: "Google Scholar",
+      url: "https://scholar.google.com/citations?hl=en&user=GaFQAt4AAAAJ",
+      iconSrc: "/assets/google-scholar.svg",
+    },
+    {
+      label: "Valorant Tracker",
+      url: "https://tracker.gg/valorant/profile/riot/HuWu%23Vibin/overview?platform=pc&playlist=competitive&season=4c4b8cff-43eb-13d3-8f14-96b783c90cd2",
+      iconSrc: "/assets/valorant.png",
+    },
+  ];
+
   return (
     <section className="card overflow-hidden">
+      {/* Banner */}
       <div className="relative h-32 w-full">
         <Image
           src="/assets/banner.png"
@@ -45,8 +75,21 @@ export default function ProfileHeader() {
           <button className="rounded-full bg-[var(--accent-blue)] px-4 py-1.5 text-sm font-semibold text-white hover:opacity-90">
             Contact
           </button>
+          <button
+            onClick={() => setModalOpen(true)}
+            className="rounded-full border border-gray-300 px-4 py-1.5 text-sm font-semibold text-gray-700 hover:bg-gray-100"
+          >
+            Links
+          </button>
         </div>
       </div>
+
+      {/* Modal */}
+      <LinksModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        links={links}
+      />
     </section>
   );
 }

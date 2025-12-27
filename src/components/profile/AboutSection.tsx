@@ -19,9 +19,9 @@ export default function AboutSection() {
       </p>
 
       <p className="text-sm leading-relaxed mt-4">
-        In my free time, I enjoy playing soccer and tennis, taking photos,
+        In my free time, I enjoy playing soccer and tennis, going to the gym,
         playing the saxophone, and spending time with music. I also enjoy cue
-        sports like pool and snooker.
+        sports like pool and snooker. I also enjoy gaming, mostly Valorant.
       </p>
     </section>
   );
