@@ -3,24 +3,9 @@
 import Image from "next/image";
 
 const navItems = [
-  {
-    label: "Home",
-    target: "home",
-    iconType: "image",
-    iconSrc: "/assets/home-icon.png",
-  },
-  {
-    label: "Projects",
-    target: "projects",
-    iconType: "emoji",
-    icon: "💼",
-  },
-  {
-    label: "Activity",
-    target: "activity",
-    iconType: "emoji",
-    icon: "⚡",
-  },
+  { label: "Home", target: "home", icon: "🏠" },
+  { label: "Projects", target: "projects", icon: "💼" },
+  { label: "Activity", target: "activity", icon: "⚡" },
 ];
 
 export default function Header() {
@@ -51,19 +36,7 @@ export default function Header() {
               onClick={() => scrollTo(item.target)}
               className="flex flex-col items-center text-xs text-gray-600 hover:text-black"
             >
-              <div className="flex items-center justify-center h-6 w-6">
-                {item.iconType === "image" ? (
-                  <Image
-                    src={item.iconSrc!}
-                    alt={`${item.label} icon`}
-                    width={20}
-                    height={20}
-                    unoptimized
-                  />
-                ) : (
-                  <span className="text-lg">{item.icon}</span>
-                )}
-              </div>
+              <span className="text-lg">{item.icon}</span>
               {item.label}
             </button>
           ))}
