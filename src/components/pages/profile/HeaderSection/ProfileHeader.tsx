@@ -2,9 +2,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import LinksModal from "./LinksModal";
+import ContactModal from "./ContactModal";
 
 export default function ProfileHeader() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
   const links = [
     {
@@ -62,7 +64,8 @@ export default function ProfileHeader() {
         <div className="flex flex-col gap-1">
           <h2 className="text-2xl font-semibold">Franklin Hu</h2>
           <p className="text-gray-700">
-            Completing Joint B.S./M.S. Computer Science Program at Vanderbilt University
+            Completing Joint B.S./M.S. Computer Science Program at Vanderbilt
+            University
           </p>
           <p className="text-sm text-gray-500">
             New York Metropolitan Area · United States
@@ -71,12 +74,15 @@ export default function ProfileHeader() {
 
         {/* Actions */}
         <div className="mt-4 flex gap-2">
-          <button className="rounded-full bg-[var(--accent-blue)] px-4 py-1.5 text-sm font-semibold text-white hover:opacity-90">
+          <button
+            onClick={() => setContactOpen(true)}
+            className="cursor-pointer rounded-full bg-[var(--accent-blue)] px-4 py-1.5 text-sm font-semibold text-white hover:opacity-90"
+          >
             Contact
           </button>
           <button
             onClick={() => setModalOpen(true)}
-            className="rounded-full border border-gray-300 px-4 py-1.5 text-sm font-semibold text-gray-700 hover:bg-gray-100"
+            className="cursor-pointer rounded-full border border-gray-300 px-4 py-1.5 text-sm font-semibold text-gray-700 hover:bg-gray-100"
           >
             Links
           </button>
@@ -84,6 +90,7 @@ export default function ProfileHeader() {
       </div>
 
       {/* Modal */}
+      <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
       <LinksModal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}

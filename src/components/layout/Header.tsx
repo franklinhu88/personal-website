@@ -3,9 +3,10 @@
 import Image from "next/image";
 
 const navItems = [
-  { label: "Home", target: "home", icon: "🏠" },
-  { label: "Projects", target: "projects", icon: "💼" },
-  { label: "Activity", target: "activity", icon: "⚡" },
+  { label: "Home", target: "about", icon: "🏠" },
+  { label: "Blog", target: "blog", icon: "📝" },
+  { label: "Experience", target: "experience", icon: "💼" },
+  { label: "Projects", target: "projects", icon: "🚀" },
 ];
 
 export default function Header() {
@@ -19,13 +20,19 @@ export default function Header() {
       <div className="mx-auto max-w-7xl flex items-center justify-between px-6 h-14">
         {/* Left: Logo */}
         <div className="flex items-center gap-2">
-          <Image
-            src="/assets/icons/linkedin-logo.png"
-            alt="Logo"
-            width={32}
-            height={32}
-            priority
-          />
+          <button
+            onClick={() => scrollTo("about")}
+            className="cursor-pointer"
+            aria-label="Go to home"
+          >
+            <Image
+              src="/assets/icons/linkedin-logo.png"
+              alt="Logo"
+              width={32}
+              height={32}
+              priority
+            />
+          </button>
         </div>
 
         {/* Nav */}
@@ -34,7 +41,7 @@ export default function Header() {
             <button
               key={item.target}
               onClick={() => scrollTo(item.target)}
-              className="flex flex-col items-center text-xs text-gray-600 hover:text-black"
+              className="cursor-pointer flex flex-col items-center text-xs text-gray-600 hover:text-black"
             >
               <span className="text-lg">{item.icon}</span>
               {item.label}

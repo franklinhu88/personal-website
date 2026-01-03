@@ -6,18 +6,28 @@ import ProjectsSection from "./ProjectSection/ProfileSection";
 export default function ProfileMain() {
   return (
     <div className="space-y-6">
-      <ProfileHeader />
+      {/* ABOUT / HOME */}
+      <section id="about" className="scroll-mt-20">
+        <ProfileHeader />
+      </section>
 
       <AboutSection />
 
-      <section className="card p-6">
+      {/* BLOG */}
+      <section id="blog" className="card p-6 scroll-mt-20">
         <h3 className="font-semibold mb-2 text-xl">Blog</h3>
         <p className="text-sm">Blog section coming soon.</p>
       </section>
 
-      <ExperienceSection />
+      {/* EXPERIENCE */}
+      <section id="experience" className="scroll-mt-20">
+        <ExperienceSection />
+      </section>
 
-      <ProjectsSection />
+      {/* PROJECTS */}
+      <section id="projects" className="scroll-mt-20">
+        <ProjectsSection />
+      </section>
     </div>
   );
 }

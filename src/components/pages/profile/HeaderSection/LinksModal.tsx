@@ -44,7 +44,7 @@ export default function LinksModal({
         </ul>
         <button
           onClick={onClose}
-          className="mt-6 w-full rounded-full bg-gray-200 px-4 py-1.5 text-sm font-semibold hover:bg-gray-300"
+          className="cursor-pointer mt-6 w-full rounded-full bg-gray-200 px-4 py-1.5 text-sm font-semibold hover:bg-gray-300"
         >
           Close
         </button>
