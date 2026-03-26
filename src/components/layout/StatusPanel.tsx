@@ -1,107 +1,113 @@
-"use client"
+"use client";
 
-import { useEffect, useMemo, useState } from "react"
-import { mockStatus } from "@/lib/mock/status"
-import type { SpotifyStatus } from "@/lib/types/status"
+import { useEffect, useMemo, useState } from "react";
+import { mockStatus } from "@/lib/mock/status";
+import type { SpotifyStatus } from "@/lib/types/status";
 
 type SpotifyCurrentlyPlaying = {
-  playing: boolean
-  updatedAt: string
-  spotify?: SpotifyStatus
-  error?: string
-}
+  playing: boolean;
+  updatedAt: string;
+  spotify?: SpotifyStatus;
+  error?: string;
+};
 
 export default function StatusPanel() {
-  const baseStatus = mockStatus
+  const baseStatus = mockStatus;
 
   // Spotify data updates on an interval so the sidebar feels "alive".
-  const [spotifyNow, setSpotifyNow] = useState<SpotifyStatus | null>(null)
-  const [spotifyLoading, setSpotifyLoading] = useState(true)
-  const [spotifyError, setSpotifyError] = useState<string | null>(null)
+  const [spotifyNow, setSpotifyNow] = useState<SpotifyStatus | null>(null);
+  const [spotifyLoading, setSpotifyLoading] = useState(true);
+  const [spotifyError, setSpotifyError] = useState<string | null>(null);
   const [spotifyUpdatedAt, setSpotifyUpdatedAt] = useState<string>(
-    baseStatus.updatedAt
-  )
+    baseStatus.updatedAt,
+  );
 
   const updatedText = useMemo(() => {
-    const d = new Date(spotifyUpdatedAt)
-    if (Number.isNaN(d.getTime())) return ""
-    return d.toLocaleDateString(undefined, { month: "short", day: "numeric" })
-  }, [spotifyUpdatedAt])
+    const d = new Date(spotifyUpdatedAt);
+    if (Number.isNaN(d.getTime())) return "";
+    return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  }, [spotifyUpdatedAt]);
 
   useEffect(() => {
-    let cancelled = false
+    let cancelled = false;
 
     const fetchNow = async () => {
       try {
-        setSpotifyLoading(true)
-        setSpotifyError(null)
+        setSpotifyLoading(true);
+        setSpotifyError(null);
 
         // Dev UX: localhost often can’t access Spotify credentials correctly.
         // Render a mocked “currently playing” response so you can style/verify the UI.
-        const host = window.location.hostname
+        const host = window.location.hostname;
         const isLocalhost =
-          host === "localhost" || host === "127.0.0.1" || host.endsWith(".localhost")
+          host === "localhost" ||
+          host === "127.0.0.1" ||
+          host.endsWith(".localhost");
 
         if (isLocalhost) {
-          setSpotifyUpdatedAt(new Date().toISOString())
+          setSpotifyUpdatedAt(new Date().toISOString());
           setSpotifyNow({
             track: "Faucet Failure",
             artist: "Ski Mask The Slump God",
             albumArtUrl:
               "https://i.scdn.co/image/ab67616d0000b273e62c8561e3b1bd9ad952ce01",
-          })
-          setSpotifyError(null)
-          setSpotifyLoading(false)
-          return
+          });
+          setSpotifyError(null);
+          setSpotifyLoading(false);
+          return;
         }
 
         const res = await fetch("/api/spotify/currently-playing", {
           cache: "no-store",
-        })
+        });
 
-        const data = (await res.json()) as SpotifyCurrentlyPlaying
+        const data = (await res.json()) as SpotifyCurrentlyPlaying;
 
-        if (cancelled) return
+        if (cancelled) return;
 
         if (!res.ok) {
-          setSpotifyNow(null)
-          setSpotifyError(data.error || "Spotify unavailable")
-          setSpotifyUpdatedAt(data.updatedAt || new Date().toISOString())
-          return
+          setSpotifyNow(null);
+          setSpotifyError(data.error || "Spotify unavailable");
+          setSpotifyUpdatedAt(data.updatedAt || new Date().toISOString());
+          return;
         }
 
-        setSpotifyUpdatedAt(data.updatedAt || new Date().toISOString())
+        setSpotifyUpdatedAt(data.updatedAt || new Date().toISOString());
         // A successful response should clear any previous error.
-        setSpotifyError(null)
+        setSpotifyError(null);
 
         if (data.playing && data.spotify) {
-          setSpotifyNow(data.spotify)
+          setSpotifyNow(data.spotify);
         } else {
-          setSpotifyNow(null)
+          setSpotifyNow(null);
         }
       } catch (e) {
-        if (cancelled) return
-        setSpotifyError(e instanceof Error ? e.message : "Spotify unavailable")
-        setSpotifyNow(null)
-        setSpotifyUpdatedAt(new Date().toISOString())
+        if (cancelled) return;
+        setSpotifyError(e instanceof Error ? e.message : "Spotify unavailable");
+        setSpotifyNow(null);
+        setSpotifyUpdatedAt(new Date().toISOString());
       } finally {
-        if (!cancelled) setSpotifyLoading(false)
+        if (!cancelled) setSpotifyLoading(false);
       }
-    }
+    };
 
-    fetchNow()
-    const id = window.setInterval(fetchNow, 15000)
+    fetchNow();
+    const id = window.setInterval(fetchNow, 15000);
 
     return () => {
-      cancelled = true
-      window.clearInterval(id)
-    }
-  }, [])
+      cancelled = true;
+      window.clearInterval(id);
+    };
+  }, []);
 
   const needsSpotifyConnect = Boolean(
     spotifyError &&
-      /not configured|missing env|SPOTIFY_REFRESH_TOKEN/i.test(spotifyError)
-  )
+    /not configured|missing env|SPOTIFY_REFRESH_TOKEN/i.test(spotifyError),
+  );
+
+  const isSpotifyPlaying = Boolean(
+    spotifyNow?.track && spotifyNow?.artist && spotifyNow?.albumArtUrl
+  );
 
   return (
     <div className="card p-4 space-y-3">
@@ -116,9 +122,28 @@ export default function StatusPanel() {
 
       <div className="space-y-2">
         {/* Spotify box */}
-        <div className="rounded-xl border border-[var(--border-subtle)] bg-white p-3">
+        <div
+          className={`rounded-xl border border-[var(--border-subtle)] bg-white p-3 ${
+            isSpotifyPlaying
+              ? "border-l-4 border-l-[var(--accent-blue)] bg-[rgba(10,102,194,0.06)]"
+              : ""
+          }`}
+        >
           <div className="flex items-center justify-between gap-3">
-            <p className="text-sm font-semibold text-gray-900">Spotify</p>
+            <div className="flex min-w-0 items-center gap-2">
+              <p className="truncate text-sm font-semibold text-gray-900">
+                {isSpotifyPlaying ? "Now Playing" : "Spotify"}
+              </p>
+              {isSpotifyPlaying && !spotifyLoading ? (
+                <>
+                  <span className="inline-flex items-center rounded-full bg-[var(--accent-blue)]/10 px-2 py-0.5 text-xs font-semibold text-[var(--accent-blue)]">
+                    LIVE
+                  </span>
+                  <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-[var(--accent-blue)]" />
+                </>
+              ) : null}
+            </div>
+
             {spotifyLoading ? (
               <p className="text-xs text-gray-500">Checking...</p>
             ) : null}
@@ -144,20 +169,20 @@ export default function StatusPanel() {
                 Connect Spotify
               </a>
             </div>
-          ) : spotifyNow?.track && spotifyNow?.artist ? (
+          ) : isSpotifyPlaying ? (
             <div className="mt-3 flex items-center gap-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={spotifyNow.albumArtUrl}
+                src={spotifyNow!.albumArtUrl}
                 alt="Album art"
                 className="h-10 w-10 rounded-md object-cover"
               />
               <div className="min-w-0">
-                <p className="truncate text-sm font-semibold text-gray-900">
-                  {spotifyNow.track}
+                <p className="truncate text-sm font-bold text-gray-900">
+                  {spotifyNow!.track}
                 </p>
                 <p className="truncate text-xs text-gray-600">
-                  {spotifyNow.artist}
+                  {spotifyNow!.artist}
                 </p>
               </div>
             </div>
@@ -172,9 +197,11 @@ export default function StatusPanel() {
 
         {/* Discord */}
         {baseStatus.discord ? (
-          <p className="text-sm text-gray-700">💬 {baseStatus.discord.activity}</p>
+          <p className="text-sm text-gray-700">
+            💬 {baseStatus.discord.activity}
+          </p>
         ) : null}
       </div>
     </div>
-  )
+  );
 }
