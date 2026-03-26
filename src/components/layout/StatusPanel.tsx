@@ -36,6 +36,25 @@ export default function StatusPanel() {
         setSpotifyLoading(true)
         setSpotifyError(null)
 
+        // Dev UX: localhost often can’t access Spotify credentials correctly.
+        // Render a mocked “currently playing” response so you can style/verify the UI.
+        const host = window.location.hostname
+        const isLocalhost =
+          host === "localhost" || host === "127.0.0.1" || host.endsWith(".localhost")
+
+        if (isLocalhost) {
+          setSpotifyUpdatedAt(new Date().toISOString())
+          setSpotifyNow({
+            track: "Faucet Failure",
+            artist: "Ski Mask The Slump God",
+            albumArtUrl:
+              "https://i.scdn.co/image/ab67616d0000b273e62c8561e3b1bd9ad952ce01",
+          })
+          setSpotifyError(null)
+          setSpotifyLoading(false)
+          return
+        }
+
         const res = await fetch("/api/spotify/currently-playing", {
           cache: "no-store",
         })
@@ -52,10 +71,11 @@ export default function StatusPanel() {
         }
 
         setSpotifyUpdatedAt(data.updatedAt || new Date().toISOString())
+        // A successful response should clear any previous error.
+        setSpotifyError(null)
 
         if (data.playing && data.spotify) {
           setSpotifyNow(data.spotify)
-          setSpotifyError(null)
         } else {
           setSpotifyNow(null)
         }
@@ -80,24 +100,8 @@ export default function StatusPanel() {
 
   const needsSpotifyConnect = Boolean(
     spotifyError &&
-      /not configured|missing env|SPOTIFY_REFRESH_TOKEN/i.test(
-        spotifyError
-      )
+      /not configured|missing env|SPOTIFY_REFRESH_TOKEN/i.test(spotifyError)
   )
-
-  const spotifyLine = (() => {
-    if (spotifyLoading) return "🎵 Checking Spotify..."
-    if (spotifyError && needsSpotifyConnect)
-      return "🎵 Connect Spotify to show your current listening"
-    if (spotifyError) return `🎵 Spotify unavailable`
-    if (spotifyNow?.track && spotifyNow?.artist) {
-      return `🎵 ${spotifyNow.track} - ${spotifyNow.artist}`
-    }
-    if (spotifyNow?.artist) {
-      return `🎵 ${spotifyNow.artist}`
-    }
-    return "🎵 Not listening on Spotify right now"
-  })()
 
   return (
     <div className="card p-4 space-y-3">
@@ -111,21 +115,64 @@ export default function StatusPanel() {
       <p className="text-sm text-gray-700">{baseStatus.summary}</p>
 
       <div className="space-y-2">
-        <p className="text-sm text-gray-700">{spotifyLine}</p>
+        {/* Spotify box */}
+        <div className="rounded-xl border border-[var(--border-subtle)] bg-white p-3">
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-sm font-semibold text-gray-900">Spotify</p>
+            {spotifyLoading ? (
+              <p className="text-xs text-gray-500">Checking...</p>
+            ) : null}
+          </div>
 
-        {needsSpotifyConnect ? (
-          <a
-            href="/spotify-connect"
-            className="block w-full rounded-full bg-gray-100 px-4 py-2 text-center text-sm font-semibold text-gray-700 hover:bg-gray-200"
-          >
-            Connect Spotify
-          </a>
-        ) : null}
+          {spotifyLoading ? (
+            <div className="mt-3 flex items-center gap-3">
+              <div className="h-10 w-10 animate-pulse rounded-md bg-gray-100" />
+              <div className="flex-1 space-y-2">
+                <div className="h-3 w-4/5 animate-pulse rounded bg-gray-100" />
+                <div className="h-2 w-2/3 animate-pulse rounded bg-gray-100" />
+              </div>
+            </div>
+          ) : needsSpotifyConnect ? (
+            <div className="mt-3 space-y-2">
+              <p className="text-sm text-gray-700">
+                Connect Spotify to show what you&apos;re currently listening to.
+              </p>
+              <a
+                href="/spotify-connect"
+                className="block w-full rounded-full bg-[var(--accent-blue)] px-4 py-2 text-center text-sm font-semibold text-white hover:opacity-90"
+              >
+                Connect Spotify
+              </a>
+            </div>
+          ) : spotifyNow?.track && spotifyNow?.artist ? (
+            <div className="mt-3 flex items-center gap-3">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={spotifyNow.albumArtUrl}
+                alt="Album art"
+                className="h-10 w-10 rounded-md object-cover"
+              />
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold text-gray-900">
+                  {spotifyNow.track}
+                </p>
+                <p className="truncate text-xs text-gray-600">
+                  {spotifyNow.artist}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-3">
+              <p className="text-sm text-gray-600">
+                Not listening on Spotify right now
+              </p>
+            </div>
+          )}
+        </div>
 
+        {/* Discord */}
         {baseStatus.discord ? (
-          <p className="text-sm text-gray-700">
-            💬 {baseStatus.discord.activity}
-          </p>
+          <p className="text-sm text-gray-700">💬 {baseStatus.discord.activity}</p>
         ) : null}
       </div>
     </div>
