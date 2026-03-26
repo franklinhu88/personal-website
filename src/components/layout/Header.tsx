@@ -1,12 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import {
+  Home,
+  FileText,
+  Briefcase,
+  Rocket,
+} from "lucide-react";
 
 const navItems = [
-  { label: "Home", target: "about", icon: "🏠" },
-  { label: "Blog", target: "blog", icon: "📝" },
-  { label: "Experience", target: "experience", icon: "💼" },
-  { label: "Projects", target: "projects", icon: "🚀" },
+  { label: "Home", target: "about", icon: Home },
+  { label: "Blog", target: "blog", icon: FileText },
+  { label: "Experience", target: "experience", icon: Briefcase },
+  { label: "Projects", target: "projects", icon: Rocket },
 ];
 
 export default function Header() {
@@ -43,7 +49,7 @@ export default function Header() {
               onClick={() => scrollTo(item.target)}
               className="cursor-pointer flex flex-col items-center text-xs text-gray-600 hover:text-black"
             >
-              <span className="text-lg">{item.icon}</span>
+              <item.icon className="text-lg" size={18} />
               {item.label}
             </button>
           ))}
