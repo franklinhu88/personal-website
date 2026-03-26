@@ -52,7 +52,7 @@ export default function ContactModal({
                 setSuccess(false);
                 onClose();
               }}
-              className="cursor-pointer w-full rounded-md bg-[var(--accent-blue)] px-4 py-2 text-sm font-semibold text-white hover:opacity-90 cursor-pointer"
+              className="cursor-pointer w-full rounded-md bg-[var(--accent-blue)] px-4 py-2 text-sm font-semibold text-white hover:opacity-90"
             >
               Close
             </button>

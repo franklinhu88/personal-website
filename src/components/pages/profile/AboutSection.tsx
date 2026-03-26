@@ -4,18 +4,18 @@ export default function AboutSection() {
       <h3 className="font-semibold mb-2 text-xl">About</h3>
 
       <p className="text-sm leading-relaxed">
-        Hi! I'm Franklin, an aspiring software engineer currently completing my bachelor's
+        Hi! I&apos;m Franklin, an aspiring software engineer currently completing my bachelor&apos;s
         degree in Computer Science and Math with a minor in Business and also a
-        master's degree in Computer Science at Vanderbilt University in
+        master&apos;s degree in Computer Science at Vanderbilt University in
         Nashville, TN.
       </p>
 
       <p className="text-sm leading-relaxed mt-4">
         Welcome to my personal website! This is a passion project not only
         highlighting my work and experiences but also serving as a platform for
-        me to experiment and tinker. I'm interested in machine learning,
+        me to experiment and tinker. I&apos;m interested in machine learning,
         full-stack development, and solving challenging problems. Feel free to
-        reach out if you'd like to connect!
+        reach out if you&apos;d like to connect!
       </p>
 
       <p className="text-sm leading-relaxed mt-4">

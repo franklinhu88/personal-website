@@ -1,14 +1,16 @@
 import { LiveStatus } from "../types/status"
 
 export const mockStatus: LiveStatus = {
-  summary: "section in progress",
+  summary:
+    'Building my personal website and integrating a few "live" sections.',
   spotify: {
-    track: "",
+    track: "Spotify integration",
     artist: "Integrating Spotify API",
     albumArtUrl: "/album-art.jpg"
   },
   discord: {
-    activity: "Building my portfolio site and attending my final semester at Vandy"
+    activity:
+      "Browsing projects, writing code, and iterating on the layout."
   },
   updatedAt: new Date().toISOString()
 }

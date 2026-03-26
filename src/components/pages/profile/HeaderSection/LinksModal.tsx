@@ -1,4 +1,3 @@
-import { JSX } from "react";
 import Image from "next/image";
 
 interface LinksModalProps {
