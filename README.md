@@ -40,17 +40,6 @@ This website is designed to:
 * **Responsive Layout:** Works on desktop and mobile with sticky sidebar and smooth scrolling navigation.
 
 ---
-## 🔌 Spotify (Currently Playing)
-
-To enable the live “currently listening” line in the right sidebar, set these environment variables:
-
-* `SPOTIFY_CLIENT_ID`
-* `SPOTIFY_CLIENT_SECRET`
-* `SPOTIFY_REFRESH_TOKEN`
-
-Your Spotify app must request the `user-read-currently-playing` scope, and the refresh token must correspond to that authorization.
-
----
 
 ## 🚀 Getting Started
 
